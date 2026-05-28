@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="NUDGE: Zero-Shot Reactive Obstacle Avoidance for Generative Robot Policies">
+  <meta name="description" content="NUDGE is a training-free, model-agnostic procedure that adds real-time obstacle avoidance to any diffusion or flow-matching robot policy by injecting signed-distance-field gradients into the denoising loop.">
+  <meta name="keywords" content="robot learning, obstacle avoidance, diffusion policy, flow matching, vision-language-action, signed distance field, inference-time guidance, CoRL">
+  <meta name="author" content="Anonymous Author(s)">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="NUDGE Project Page">
+  <meta property="og:title" content="NUDGE: Zero-Shot Reactive Obstacle Avoidance for Generative Robot Policies">
+  <meta property="og:description" content="A training-free procedure that adds real-time obstacle avoidance to any diffusion or flow-matching robot policy via signed-distance-field guidance.">
+  <!-- TODO: set to your deployed URL once published -->
+  <meta property="og:url" content="">
+  <meta property="og:image" content="static/images/method_pipeline.png">
+  <meta property="og:image:alt" content="NUDGE pipeline overview">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NUDGE: Zero-Shot Reactive Obstacle Avoidance for Generative Robot Policies">
+  <meta name="twitter:description" content="A training-free procedure that adds real-time obstacle avoidance to any diffusion or flow-matching robot policy via signed-distance-field guidance.">
+  <meta name="twitter:image" content="static/images/method_pipeline.png">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="Zero-Shot Reactive Obstacle Avoidance for Generative Robot Policies">
+  <meta name="citation_author" content="Anonymous">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_conference_title" content="Conference on Robot Learning (CoRL)">
+  <meta name="citation_pdf_url" content="static/pdfs/paper.pdf">
+
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <title>NUDGE: Zero-Shot Reactive Obstacle Avoidance for Generative Robot Policies</title>
+
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+
+  <!-- Fonts - Optimized loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Zero-Shot Reactive Obstacle Avoidance for Generative Robot Policies",
+    "description": "NUDGE is a training-free, model-agnostic procedure that adds real-time obstacle avoidance to any diffusion or flow-matching robot policy by injecting signed-distance-field gradients into the denoising loop.",
+    "author": [{ "@type": "Person", "name": "Anonymous Author(s)" }],
+    "datePublished": "2026",
+    "publisher": { "@type": "Organization", "name": "Conference on Robot Learning (CoRL)" },
+    "image": "static/images/method_pipeline.png",
+    "keywords": ["robot learning", "obstacle avoidance", "diffusion policy", "flow matching", "vision-language-action", "signed distance field"],
+    "isAccessibleForFree": true
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Zero-Shot Reactive Obstacle Avoidance for Generative Robot Policies</h1>
+            <h2 class="subtitle is-3" style="margin-top:-0.5rem;margin-bottom:1.5rem;">
+              <strong>NUDGE</strong>: <u>N</u>udge <u>U</u>pdate via <u>D</u>ifferentiable <u>GE</u>ometry
+            </h2>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Anonymous Author(s)</span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Submitted to the 10th Conference on Robot Learning (CoRL 2026)</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- Paper PDF -->
+                <span class="link-block">
+                  <a href="static/pdfs/paper.pdf" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+
+              <!-- TODO: add arXiv / OpenReview / Code links once available -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser: real-robot demos -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="columns is-centered">
+        <div class="column">
+          <video id="demo-baseline" autoplay controls muted loop playsinline preload="metadata" width="100%">
+            <source src="static/videos/real_baseline.mp4" type="video/mp4">
+          </video>
+          <h3 class="title is-5 has-text-centered" style="margin-top:0.6rem;">Baseline</h3>
+        </div>
+        <div class="column">
+          <video id="demo-nudge" autoplay controls muted loop playsinline preload="metadata" width="100%">
+            <source src="static/videos/real_nudge.mp4" type="video/mp4">
+          </video>
+          <h3 class="title is-5 has-text-centered" style="margin-top:0.6rem;">NUDGE (ours)</h3>
+        </div>
+      </div>
+      <h2 class="subtitle has-text-centered">
+        <strong>NUDGE</strong> adds zero-shot obstacle avoidance to a fine-tuned &pi;<sub>0</sub> vision-language-action
+        policy driving a real UR5, steering its predicted actions away from obstacles at inference time &mdash;
+        without retraining and at the extra cost of only <strong>2.5&nbsp;ms per action chunk</strong>.
+      </h2>
+    </div>
+  </div>
+</section>
+<!-- End teaser -->
+
+<!-- Abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We propose <strong>NUDGE</strong> (Nudge Update via Differentiable GEometry), a training-free
+            obstacle-avoidance procedure that can be incorporated in any robot policy based on diffusion or flow
+            matching, including diffusion policies and vision-language-action models. Our work injects gradients from a
+            signed distance field, a function returning each point's distance to the nearest obstacle, into the policy
+            at inference time to steer it away from obstacles. It supports any common action parameterization, from
+            absolute or relative joint poses to end-effector poses, through a differentiable joint-trajectory decoder.
+            Experiments show that NUDGE preserves the policy's task distribution and runs reactively in real time.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End abstract -->
+
+<!-- Method -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-3 has-text-centered">How NUDGE Works</h2>
+        <img src="static/images/method_pipeline.png" alt="NUDGE pipeline: SDF-guided denoising for generative robot policies" style="width:100%;border-radius:8px;"/>
+        <p class="has-text-centered" style="margin-top:1rem;color:#666;">
+          <strong>(a)</strong> NUDGE turns a live point cloud into a signed distance field and injects its gradient into
+          the denoising loop. <strong>(b)</strong> The baseline collides with the pool noodle; NUDGE lifts over it.
+        </p>
+        <div class="content">
+          <ul>
+            <li><strong>Training-free &amp; model-agnostic</strong> &mdash; works on any diffusion or flow-matching
+              action-chunk policy, including VLAs.</li>
+            <li><strong>Preserves the task distribution</strong> while avoiding obstacles, across two sim benchmarks.</li>
+            <li><strong>Real-time on a real robot</strong> &mdash; only 2.5&nbsp;ms per action chunk on a &pi;<sub>0</sub>
+              VLA driving a UR5.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End method -->
+
+<!-- Results -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+
+    <!-- Real robot + timing -->
+    <h2 class="title is-3 has-text-centered">Real-Robot Deployment &amp; Timing</h2>
+    <img src="static/images/denoising_viz.png" alt="Denoising visualization on a real robot: baseline collides, NUDGE avoids" style="width:100%;border-radius:8px;"/>
+    <p class="has-text-centered" style="margin-top:1rem;color:#666;">
+      Across denoising steps (<em>t=10&rarr;0</em>) the baseline collides with the pool noodle while NUDGE pushes the
+      action chunk clear. Guidance runs only on the last two steps, adding just
+      <strong>2.46&nbsp;ms end-to-end</strong> under <code>torch.compile</code>.
+    </p>
+    <div class="table-container">
+      <table class="table is-striped is-hoverable is-fullwidth">
+        <thead>
+          <tr><th>Stage</th><th>&pi;<sub>0</sub> (ms)</th><th>&pi;<sub>0</sub> + ours (ms)</th><th>&Delta; (ms)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Observation pipeline (ZMQ I/O + host&rarr;GPU)</td><td>5.06</td><td>5.54</td><td>+0.48</td></tr>
+          <tr><td>Vision + language prefix encode</td><td>8.94</td><td>9.01</td><td>+0.07</td></tr>
+          <tr><td>Causal prefill</td><td>17.02</td><td>17.48</td><td>+0.46</td></tr>
+          <tr><td>Denoising loop (10 steps)</td><td>72.40</td><td>76.38</td><td>+3.98</td></tr>
+          <tr><td style="padding-left:2rem;">&hookrightarrow; NUDGE guidance (last 2 steps)</td><td>&mdash;</td><td>3.76</td><td>+3.76</td></tr>
+          <tr><td>Post-processing</td><td>0.16</td><td>0.20</td><td>+0.04</td></tr>
+          <tr><td><strong>End-to-end (eager PyTorch)</strong></td><td>104.76</td><td>109.90</td><td>+5.14</td></tr>
+          <tr><td><strong>End-to-end (<code>torch.compile</code>)</strong></td><td>34.41</td><td>36.87</td><td><strong>+2.46</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Sphere constraint -->
+    <h2 class="title is-3 has-text-centered" style="margin-top:3rem;">Preserving the Task Manifold</h2>
+    <p class="has-text-centered" style="color:#666;">
+      A diffusion policy must track a sphere, avoid a random box obstacle, and stay on the sphere manifold.
+      NUDGE balances all three for the highest overall success.
+    </p>
+    <div class="columns is-centered" style="margin-top:1rem;">
+      <div class="column">
+        <p class="has-text-centered" style="margin-bottom:0.4rem;"><strong>Baseline (Vanilla)</strong></p>
+        <video src="static/videos/sphere_baseline.mp4" autoplay loop muted playsinline style="width:100%;border-radius:8px;"></video>
+      </div>
+      <div class="column">
+        <p class="has-text-centered" style="margin-bottom:0.4rem;"><strong>Post-Projection</strong></p>
+        <video src="static/videos/sphere_post_process.mp4" autoplay loop muted playsinline style="width:100%;border-radius:8px;"></video>
+      </div>
+      <div class="column">
+        <p class="has-text-centered" style="margin-bottom:0.4rem;"><strong>NUDGE (ours)</strong></p>
+        <video src="static/videos/sphere_per_step.mp4" autoplay loop muted playsinline style="width:100%;border-radius:8px;"></video>
+      </div>
+    </div>
+    <div class="table-container">
+      <table class="table is-striped is-hoverable is-fullwidth">
+        <thead>
+          <tr>
+            <th>Method</th><th>Success &uarr;</th><th>Reach &uarr;</th>
+            <th>Coll. Ep. &darr;</th><th>Coll. Rate &darr;</th>
+            <th>On-Sphere &uarr;</th><th>Sphere Err. (cm) &darr;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Vanilla</td><td>37.0%</td><td>82.0%</td><td>54.0%</td><td>16.4%</td><td>84.3%</td><td>2.78</td></tr>
+          <tr><td>Post-Projection</td><td>25.0%</td><td>29.0%</td><td>14.5%</td><td>4.7%</td><td>56.4%</td><td>4.84</td></tr>
+          <tr><td>RAIL</td><td>50.0%</td><td>50.0%</td><td>0.0%</td><td>0.00%</td><td>80.3%</td><td>3.16</td></tr>
+          <tr><td>Ours (w=20)</td><td>42.0%</td><td>73.0%</td><td>47.0%</td><td>13.8%</td><td>80.5%</td><td>3.00</td></tr>
+          <tr><td>Ours (w=100)</td><td>66.5%</td><td>73.0%</td><td>10.0%</td><td>0.91%</td><td>83.6%</td><td>2.86</td></tr>
+          <tr><td><strong>Ours (w=200)</strong></td><td><strong>71.5%</strong></td><td>73.5%</td><td>2.5%</td><td>0.21%</td><td>83.0%</td><td>2.87</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- LIBERO -->
+    <h2 class="title is-3 has-text-centered" style="margin-top:3rem;">Generalization in Simulation</h2>
+    <div class="columns is-vcentered">
+      <div class="column is-one-third">
+        <img src="static/images/libero_setup.png" alt="LIBERO-Object obstacle-injection setup" style="width:100%;border-radius:8px;"/>
+      </div>
+      <div class="column is-two-thirds">
+        <p class="has-text-justified">
+          We insert one spherical obstacle on the transport path of a &pi;<sub>0.5</sub> VLA across LIBERO-Object's 10
+          tasks. Success improves on <strong>9 of 10</strong> tasks and collisions drop to near zero.
+        </p>
+        <p class="has-text-justified">
+          We do not yet model collisions between the robot's <strong>grasped object</strong> and the environment, and
+          leave this to future work. This shows up in the <em>tomato sauce</em> case, whose long
+          bottle our single-sphere payload model does not capture.
+        </p>
+      </div>
+    </div>
+    <div class="table-container">
+      <table class="table is-striped is-hoverable is-fullwidth">
+        <thead>
+          <tr>
+            <th rowspan="2" style="vertical-align:bottom;">Task</th>
+            <th colspan="2" class="has-text-centered">Success Rate &uarr;</th>
+            <th colspan="2" class="has-text-centered">Coll. Rate (%) &darr;</th>
+          </tr>
+          <tr><th>Vanilla</th><th>Ours</th><th>Vanilla</th><th>Ours</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Can</td><td>50%</td><td><strong>90%</strong></td><td>5.7</td><td><strong>0.0</strong></td></tr>
+          <tr><td>Cheese</td><td>40%</td><td><strong>50%</strong></td><td>6.6</td><td><strong>0.6</strong></td></tr>
+          <tr><td>Dressing</td><td>20%</td><td><strong>50%</strong></td><td>4.5</td><td><strong>0.0</strong></td></tr>
+          <tr><td>BBQ</td><td>0%</td><td><strong>10%</strong></td><td>4.7</td><td><strong>0.0</strong></td></tr>
+          <tr><td>Ketchup</td><td>20%</td><td><strong>30%</strong></td><td>11.8</td><td><strong>0.0</strong></td></tr>
+          <tr><td>Tomato</td><td>0%</td><td>0%</td><td>31.2</td><td><strong>0.2</strong></td></tr>
+          <tr><td>Butter</td><td>90%</td><td><strong>100%</strong></td><td>6.1</td><td><strong>0.0</strong></td></tr>
+          <tr><td>Milk</td><td>0%</td><td><strong>30%</strong></td><td>23.1</td><td><strong>1.2</strong></td></tr>
+          <tr><td>Pudding</td><td>70%</td><td><strong>100%</strong></td><td>28.6</td><td><strong>1.7</strong></td></tr>
+          <tr><td>Juice</td><td>10%</td><td><strong>30%</strong></td><td>9.1</td><td><strong>1.5</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- LIBERO video comparison -->
+    <div style="margin-top:2.5rem;">
+      <h3 class="title is-4 has-text-centered">Watch the Rollouts</h3>
+      <p class="has-text-centered" style="margin-bottom:1.25rem;color:#666;">
+        Same scene and obstacle per episode &mdash; directly comparable.
+      </p>
+      <div class="columns is-centered is-variable is-2" style="margin-bottom:0.5rem;">
+        <div class="column is-half">
+          <div class="field">
+            <label class="label">Task (object)</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select id="libero-task"></select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column is-one-third">
+          <div class="field">
+            <label class="label">Episode</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select id="libero-ep"></select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="columns is-centered">
+        <div class="column">
+          <p class="has-text-centered" style="margin-bottom:0.4rem;">
+            <strong>Baseline (&pi;<sub>0.5</sub>)</strong> &nbsp;<span id="libero-badge-b"></span>
+          </p>
+          <video id="libero-vid-b" autoplay loop muted playsinline controls width="100%" style="border-radius:8px;background:#000;"></video>
+        </div>
+        <div class="column">
+          <p class="has-text-centered" style="margin-bottom:0.4rem;">
+            <strong>NUDGE (ours)</strong> &nbsp;<span id="libero-badge-n"></span>
+          </p>
+          <video id="libero-vid-n" autoplay loop muted playsinline controls width="100%" style="border-radius:8px;background:#000;"></video>
+        </div>
+      </div>
+    </div>
+    <!-- End LIBERO video comparison -->
+
+  </div>
+</section>
+<!-- End results -->
+
+<!-- BibTeX citation -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <div class="bibtex-header">
+      <h2 class="title">BibTeX</h2>
+      <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+        <i class="fas fa-copy"></i>
+        <span class="copy-text">Copy</span>
+      </button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{nudge2026,
+  title     = {Zero-Shot Reactive Obstacle Avoidance for Generative Robot Policies},
+  author    = {Anonymous},
+  booktitle = {Conference on Robot Learning (CoRL)},
+  year      = {2026},
+  note      = {Under review}
+}</code></pre>
+  </div>
+</section>
+<!-- End BibTeX citation -->
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- LIBERO rollout viewer -->
+<script>
+const LIBERO = {"tasks":["alphabet soup","cream cheese","salad dressing","bbq sauce","ketchup","tomato sauce","butter","milk","chocolate pudding","orange juice"],"outcomes":[[["s","s"],["s","s"],["f","f"],["f","s"],["s","s"],["f","s"],["s","s"],["f","s"],["s","s"],["f","s"]],[["s","s"],["f","f"],["f","s"],["f","s"],["s","s"],["s","s"],["f","f"],["f","f"],["f","f"],["s","f"]],[["f","f"],["f","f"],["f","s"],["f","f"],["f","s"],["f","f"],["f","s"],["f","s"],["s","s"],["s","f"]],[["f","f"],["f","f"],["f","f"],["f","f"],["f","f"],["f","f"],["f","s"],["f","f"],["f","f"],["f","f"]],[["f","f"],["s","s"],["f","f"],["s","f"],["f","s"],["f","f"],["f","f"],["f","f"],["f","f"],["f","s"]],[["f","f"],["f","f"],["f","f"],["f","f"],["f","f"],["f","f"],["f","f"],["f","f"],["f","f"],["f","f"]],[["s","s"],["s","s"],["s","s"],["s","s"],["f","s"],["s","s"],["s","s"],["s","s"],["s","s"],["s","s"]],[["f","f"],["f","s"],["f","f"],["f","f"],["f","f"],["f","s"],["f","f"],["f","s"],["f","f"],["f","f"]],[["s","s"],["f","s"],["f","s"],["s","s"],["s","s"],["f","s"],["s","s"],["s","s"],["s","s"],["s","s"]],[["f","s"],["f","f"],["f","f"],["f","s"],["f","s"],["f","f"],["s","f"],["f","f"],["f","f"],["f","f"]]],"defaultEp":[3,2,2,6,4,0,4,1,1,0]};
+(function () {
+  const S = { s: "success", f: "failure" };
+  const taskSel = document.getElementById("libero-task");
+  const epSel = document.getElementById("libero-ep");
+  const vidB = document.getElementById("libero-vid-b");
+  const vidN = document.getElementById("libero-vid-n");
+  const badgeB = document.getElementById("libero-badge-b");
+  const badgeN = document.getElementById("libero-badge-n");
+  if (!taskSel) return;
+
+  LIBERO.tasks.forEach((name, i) => {
+    const o = document.createElement("option");
+    o.value = i; o.textContent = name;
+    taskSel.appendChild(o);
+  });
+  const pad = (n, w) => String(n).padStart(w, "0");
+  const mark = (ch) => (ch === "s" ? "✓" : "✗"); // ✓ / ✗
+  const badge = (ch) => ch === "s"
+    ? '<span class="tag is-success">success</span>'
+    : '<span class="tag is-danger">failure</span>';
+
+  function fillEpisodes(t) {
+    epSel.innerHTML = "";
+    for (let e = 0; e < 10; e++) {
+      const [b, n] = LIBERO.outcomes[t][e];
+      const o = document.createElement("option");
+      o.value = e;
+      o.textContent = `Episode ${e} — Baseline ${mark(b)} · NUDGE ${mark(n)}`;
+      epSel.appendChild(o);
+    }
+  }
+
+  function update() {
+    const t = +taskSel.value, e = +epSel.value;
+    const [b, n] = LIBERO.outcomes[t][e];
+    const tt = pad(t, 2), ee = pad(e, 3);
+    vidB.src = `static/videos/libero_baseline/rollout_t${tt}_e${ee}_${S[b]}.mp4`;
+    vidN.src = `static/videos/libero_nudge/rollout_t${tt}_e${ee}_${S[n]}.mp4`;
+    badgeB.innerHTML = badge(b);
+    badgeN.innerHTML = badge(n);
+    vidB.load(); vidN.load();
+  }
+  taskSel.addEventListener("change", () => {
+    const t = +taskSel.value;
+    fillEpisodes(t);
+    epSel.value = LIBERO.defaultEp[t];
+    update();
+  });
+  epSel.addEventListener("change", update);
+  taskSel.value = 0;
+  fillEpisodes(0);
+  epSel.value = LIBERO.defaultEp[0];
+  update();
+})();
+</script>
+
+</body>
+</html>
